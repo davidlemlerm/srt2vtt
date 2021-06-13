@@ -7,6 +7,13 @@ import getopt
 inputfilename = None
 outputfilename = None
 
+# Functions
+def getTransformedLine(line):
+	if "-->" in line:
+		return line.replace(",", ".")
+	else:
+		return line
+
 # Argument processing
 args, params = getopt.getopt(sys.argv[1:], "i:o:")
 for arg, param in args:
@@ -35,11 +42,7 @@ if outputfilename == None:
 	print("WEBVTT")
 	print()
 	for line in inputfile:
-		if "-->" in line:
-			newline = line.replace(",", ".")
-			print(newline, end="")
-		else:
-			print(line, end="")
+		print(getTransformedLine(line), end="")
 
 # If we're outputting to a file
 else:
@@ -52,11 +55,7 @@ else:
 	output.write("WEBVTT")
 	output.write("\n\n")
 	for line in inputfile:
-		if "-->" in line:
-			newline = line.replace(",", ".")
-			output.write(newline)
-		else:
-			output.write(line)
+		output.write(getTransformedLine(line))
 	# Close our output file
 	output.close()
 			
