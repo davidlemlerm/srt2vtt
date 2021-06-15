@@ -35,14 +35,14 @@ while done == False:
 		inputfilename = input()
 
 # Open the file
-inputfile = open(inputfilename)
+inputfile = open(inputfilename, "rb").read().decode("utf-8-sig").splitlines()
 
 # If we're outputting to the console
 if outputfilename == None:
 	print("WEBVTT")
 	print()
 	for line in inputfile:
-		print(getTransformedLine(line), end="")
+		print(getTransformedLine(line))
 
 # If we're outputting to a file
 else:
@@ -56,8 +56,6 @@ else:
 	output.write("\n\n")
 	for line in inputfile:
 		output.write(getTransformedLine(line))
+		output.write("\n")
 	# Close our output file
 	output.close()
-			
-# Close our input file
-inputfile.close()
